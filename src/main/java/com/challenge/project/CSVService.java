@@ -21,7 +21,6 @@ public class CSVService {
         try {
             List<Person> persons = CSVHelper.csvToPerson(file.getInputStream());
 
-            //
             repository.saveAll(persons);
         } catch (IOException e) {
             throw new RuntimeException("fail to store csv data: " + e.getMessage());

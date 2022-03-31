@@ -11,7 +11,6 @@ public class Person {
     @Column(nullable = false, unique = true)
     private String name;
 
-
     @Min(0)
     @Column(nullable = false)
     private double salary;

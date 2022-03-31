@@ -23,8 +23,6 @@ public class PersonController {
     @Autowired
     CSVService fileService;
 
-    Logger logger = LoggerFactory.getLogger(LoggingController.class);
-
     @GetMapping("/users")
     public ResponseEntity<ResponseMessage> findPerson(@RequestParam(name="min", defaultValue = "0.0") double minSalary,
                                                       @RequestParam(name="max", defaultValue = "4000.0") double maxSalary,
@@ -33,6 +31,7 @@ public class PersonController {
                                                       @RequestParam(name="sort", defaultValue = "-1") String sortColumn){
         PersonSpecification minSpec = new PersonSpecification(new SearchCriteria("salary",">",minSalary));
         PersonSpecification maxSpec = new PersonSpecification(new SearchCriteria("salary", "<", maxSalary));
+
         List<Person> results;
         if (sortColumn.compareTo("-1") != 0 && Arrays.stream(CSVHelper.headers).anyMatch(sortColumn::equals)) {
             results = fileService.repository.findAll(Specification.where(minSpec).and(maxSpec),

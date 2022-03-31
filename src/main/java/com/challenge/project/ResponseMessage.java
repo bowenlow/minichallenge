@@ -7,8 +7,7 @@ public class ResponseMessage {
     private int success;
     private List results;
 
-    public ResponseMessage(String m, int s,List r)
-    {
+    public ResponseMessage(String m, int s,List r) {
         this.message = m;
         this.success = s;
         this.results = r;

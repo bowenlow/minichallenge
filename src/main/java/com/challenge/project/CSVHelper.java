@@ -22,6 +22,7 @@ public class CSVHelper {
     static Logger logger = LoggerFactory.getLogger(LoggingController.class);
     public static String type = "text/csv";
     static String[] headers = {"name","salary"};
+
     public static boolean hasCSVFormat(MultipartFile file) {
         if (!type.equals(file.getContentType())){
             return false;
@@ -32,6 +33,7 @@ public class CSVHelper {
     public static InputStreamReader newReader(InputStream inputStream) {
         return new InputStreamReader(new BOMInputStream(inputStream), StandardCharsets.UTF_8);
     }
+
     public static List<Person> csvToPerson(InputStream is){
         InputStreamReader freader = newReader(is);
         try (BufferedReader fileReader = new BufferedReader(freader);
@@ -42,6 +44,7 @@ public class CSVHelper {
                              .withTrim());) {
             List<Person> persons = new ArrayList<Person>();
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+
             for (CSVRecord csvRecord : csvRecords) {
                 String n = csvRecord.get("name");
                 double s =  Double.parseDouble(csvRecord.get("salary"));
@@ -51,10 +54,8 @@ public class CSVHelper {
                     persons.add(person);
                 }
             }
-
             return persons;
         } catch (IOException e) {
-            logger.info(e.getMessage());
             throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
         }
     }
