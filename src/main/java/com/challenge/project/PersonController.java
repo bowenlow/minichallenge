@@ -40,7 +40,6 @@ public class PersonController {
         } else {
             results = fileService.repository.findAll(Specification.where(minSpec).and(maxSpec));
         }
-        logger.info(String.valueOf(results));
 
         List<Person> new_results;
         if (limit > 0) {
